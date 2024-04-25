@@ -1,0 +1,25 @@
+name: 'Setup tko'
+description: 'Install tko'
+branding:
+  icon: box
+  color: green
+runs:
+  using: "composite"
+  steps:
+  - shell: bash
+    run: |
+      set -eux 
+      set -o pipefail
+
+      tag=$(curl -L -s -u "username:${{ github.token }}" https://api.github.com/repos/dskiff/tko/releases/latest | jq -r '.tag_name')
+      os="Linux"
+
+      echo "Installing tko@${tag}"
+      curl -fsL https://github.com/dskiff/tko/releases/download/${tag}/tko_${os}_x86_64.tar.gz | sudo tar xzf - -C /usr/local/bin tko
+
+      if [[ ! -z ${TKO_TARGET_REPO} ]]; then
+        echo "TKO_TARGET_REPO is already set"
+      else
+        repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+        echo "TKO_TARGET_REPO=ghcr.io/${repo}" >> $GITHUB_ENV
+      fi
