@@ -1,0 +1,14 @@
+name: ci
+
+on: [push]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout
+
+      - uses: ./
+
+      - run: tko version
