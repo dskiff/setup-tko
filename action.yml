@@ -8,8 +8,7 @@ runs:
   steps:
   - shell: bash
     run: |
-      set -eux 
-      set -o pipefail
+      set -exo pipefail
 
       tag=$(curl -L -s -u "username:${{ github.token }}" https://api.github.com/repos/dskiff/tko/releases/latest | jq -r '.tag_name')
       os="Linux"
