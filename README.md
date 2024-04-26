@@ -1,11 +1,11 @@
-# tko-setup
+# setup-tko
 
 A simple setup action for [tko](https://github.com/dskiff/tko).
 
 ```
 # ... perform build and place output in ./out ...
 
-- use: dskiff/tko-setup@latest
+- use: dskiff/setup-tko@latest
 
 - name: Publish
   run: tko "./out"
